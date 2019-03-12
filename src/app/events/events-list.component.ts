@@ -8,8 +8,7 @@ import { ToastrService } from "../common/toastr.service";
 //but it's bad style to have vars in the global namespace
 
 @Component({
-  selector: 'events-list',
-  templateUrl: './event-thumbnail.component.html'
+  templateUrl: './event-list.component.html'
 })
 export class EventsListComponent implements OnInit{
   events:any[]
