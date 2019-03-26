@@ -1,4 +1,6 @@
 import { Component, Input, Output } from '@angular/core'
+//I Think this works because index is the assumed directory undershared
+import { IEvent } from './shared';
 
 @Component({
   selector: 'event-thumbnail',
@@ -10,7 +12,7 @@ import { Component, Input, Output } from '@angular/core'
   `]
 })
 export class EventThumbnailComponent {
-  @Input() event:any
+  @Input() event:IEvent
   getStartTimeStyle():any {
     if (this.event && this.event.time === '8:00 am')
       return {color: '#003300', 'font-weight': 'bold'}

@@ -1,0 +1,17 @@
+
+.nav.navbar-nav {
+  font-size: 15px;
+}
+#searchForm {
+  margin-right: 100px;
+}
+/* Hide search bar on smaller devices */
+@media (max-width: 1200px) {
+  #searchForm {
+    display:none
+  }
+}
+/* Active link style */
+li > a.active{
+  color: #F97924;
+}

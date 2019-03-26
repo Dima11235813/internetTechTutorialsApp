@@ -7,21 +7,22 @@ import { appRoutes } from './routes';
 
 //components
 import { EventsAppComponent } from './events-app.component'
-import { EventsListComponent } from './events/events-list.component'
-import { EventThumbnailComponent } from './events/event-thumbnail.component'
 import { NavBarComponent } from './nav/nav-bar.component';
-
-//services
-import { EventService } from './events/shared/event.service'
-import { EventDetailsComponent } from "./events/event-details/event-details.component";
-
-//error route activator
-import { EventRouteActivator } from './events/event-details/event-route-activator.service';
 
 //3rd party services
 import { ToastrService } from "./common/toastr.service";
-import { CreateEventComponent } from './events/create-event/create-event.component';
 import { Error404Component } from './errors/404.component';
+
+//barrels
+import {
+  EventsListComponent,
+  EventThumbnailComponent,
+  EventDetailsComponent,
+  CreateEventComponent,
+  EventService,
+  EventRouteActivator,
+  EventListResolver,
+} from './events/index'
 
 
 @NgModule({
@@ -41,10 +42,25 @@ import { Error404Component } from './errors/404.component';
   providers: [
     EventService,
     ToastrService,
-    EventRouteActivator
+    EventRouteActivator,
+    EventListResolver,
+    {
+      provide: 'canDeactivateCreateEvent',
+      useValue: checkDirtyState
+    }
   ],
   bootstrap: [
     EventsAppComponent
   ]
 })
 export class AppModule { }
+
+export function checkDirtyState(
+  component: CreateEventComponent
+){
+  //check if user made any changes
+  if(component.isDirty){
+    return window.confirm("You haven't saved this event, are you sure you want to leave this page?")
+  }
+  return true
+}

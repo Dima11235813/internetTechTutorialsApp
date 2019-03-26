@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core'
+import { Subject, Observable } from 'rxjs'
+// import { EVENTS } from './mockEventData.module'
+import { IEvent } from './event.model'
 
 @Injectable()
 export class EventService {
   // constructor(private http:Http){}
 
-  getEvents(){
-    return EVENTS
+  getEvents():Observable<IEvent[]>{
+    let subject = new Subject<IEvent[]>()
+    setTimeout(() => {
+      subject.next(EVENTS)
+      subject.complete()
+    }, 100)
+    return subject
   }
-  getEvent(id: number){
+  getEvent(id: number):IEvent{
     return EVENTS.find(event => event.id === id)
   }
 }
 
-
-const EVENTS = [
+export const EVENTS: IEvent[] = [
   {
   id: 1,
   name: 'Angular Connect',
@@ -317,5 +324,4 @@ const EVENTS = [
       voters: ['bradgreen', 'igorminar', 'johnpapa']
     }
   ]
-}
-]
+}]
